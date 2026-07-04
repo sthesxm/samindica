@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teste</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e8d5c8;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    background: #F2E0D2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .top-band {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #F9CBD6, #9E182B, #F2AFBC, #9E182B, #F9CBD6);
+    opacity: 0;
+    animation: fadeIn 0.6s ease 0.1s forwards;
+  }
+
+  .logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 40px 28px 0;
+    opacity: 0;
+    animation: slideDown 0.7s ease 0.2s forwards;
+  }
+
+  .logo-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 1.5px solid #F2AFBC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff8f5;
+    position: relative;
+  }
+
+  .logo-ring::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    background: #9E182B;
+  }
+
+  .logo-ring svg {
+    position: relative;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #9E182B;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .brand-tagline {
+    font-size: 11px;
+    color: #c48a97;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-top: -8px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: calc(100% - 56px);
+    opacity: 0;
+    animation: fadeIn 0.6s ease 0.45s forwards;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 0.5px;
+    background: #F2AFBC;
+  }
+
+  .divider-diamond {
+    width: 6px;
+    height: 6px;
+    background: #9E182B;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* PRODUCT — aspect-ratio 4/3 como na versão anterior */
+  .product-area {
+    width: calc(100% - 48px);
+    opacity: 0;
+    animation: slideUp 0.7s ease 0.35s forwards;
+  }
+
+  .product-frame {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    background: #F9CBD6;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #F2AFBC;
+  }
+
+  .product-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .product-inner svg {
+    width: 52px;
+    height: 52px;
+    stroke: #c48a97;
+    fill: none;
+    stroke-width: 1;
+  }
+
+  .product-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: #c48a97;
+    letter-spacing: 0.05em;
+  }
+
+  .product-info {
+    width: calc(100% - 56px);
+    text-align: center;
+    opacity: 0;
+    animation: slideUp 0.7s ease 0.5s forwards;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #9E182B;
+    margin-bottom: 6px;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    color: #b07080;
+    font-weight: 300;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  .cta-area {
+    width: calc(100% - 56px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    animation: slideUp 0.7s ease 0.6s forwards;
+  }
+
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 19px 28px;
+    background: #9E182B;
+    color: #F9CBD6;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+
+  .cta-btn:hover {
+    background: #7a1120;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(158,24,43,0.25);
+  }
+
+  .cta-btn:active { transform: scale(0.97); }
+
+  .cta-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #F9CBD6;
+    flex-shrink: 0;
+  }
+
+  .cta-sub {
+    text-align: center;
+    font-size: 11px;
+    color: #c48a97;
+    letter-spacing: 0.06em;
+  }
+
+  .petals {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+
+  @keyframes fadeIn  { to { opacity: 1; } }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (min-width: 421px) {
+    body { background: #ddc8ba; }
+    .page { box-shadow: 0 0 60px rgba(100,20,30,0.12); }
+  }
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1993747144595346');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1993747144595346&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+<main class="page">
+
+  <div class="top-band"></div>
+
+  <div class="logo-area">
+    <div class="logo-ring">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3 C9 6, 5 8, 5 12 C5 16.4, 8.1 19, 12 21 C15.9 19, 19 16.4, 19 12 C19 8, 15 6, 12 3Z" fill="#F9CBD6" opacity="0.9"/>
+        <path d="M12 7 C10 9, 8 10.5, 8 13 C8 15.8, 9.8 17.5, 12 18.5 C14.2 17.5, 16 15.8, 16 13 C16 10.5, 14 9, 12 7Z" fill="#F2AFBC"/>
+      </svg>
+    </div>
+    <div style="text-align:center; display:flex; flex-direction:column; gap:4px;">
+      <span class="brand-name">Teste</span>
+      <span class="brand-tagline">coleção exclusiva</span>
+    </div>
+  </div>
+
+  <div class="divider" style="margin-top: 24px;">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="product-info" style="margin-top: 24px;">
+    <p class="product-name">Produto Teste</p>
+  </div>
+
+  <div class="product-area" style="margin-top: 14px;">
+    <div class="product-frame">
+      <div class="product-inner">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <span class="product-label">imagem do produto</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-area" style="margin-top: 20px;">
+    <a href="#" class="cta-btn" onclick="fbq('track', 'InitiateCheckout');">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 11.5V6a1 1 0 0 1 2 0v3h1V4a1 1 0 0 1 2 0v5h1V5a1 1 0 0 1 2 0v6l.5 3.5A4.5 4.5 0 0 1 13 19H11a4 4 0 0 1-4-4v-1.5a1.5 1.5 0 0 1 2 0z"/>
+      </svg>
+      Clique aqui para adquirir
+    </a>
+    <p class="cta-sub">✦ pagamento 100% seguro ✦</p>
+  </div>
+
+  <svg class="petals" viewBox="0 0 420 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="80" rx="70" ry="50" fill="#9E182B"/>
+    <ellipse cx="210" cy="90" rx="90" ry="55" fill="#F2AFBC"/>
+    <ellipse cx="370" cy="80" rx="70" ry="50" fill="#9E182B"/>
+  </svg>
+
+</main>
+</body>
+</html>
